@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:async/async.dart';
 
 class ProfilePage extends StatelessWidget {
+  String webUrl = 'http://m2cs.org/';
+  String emailUrl = 'mailto:m2cs786@gmail.com';
+  String fbUrl = 'https://www.facebook.com/M2CS-179991619396541/';
+
   Widget _buildAvatar() {
     return Container(
       width: 110.0,
@@ -21,61 +27,73 @@ class ProfilePage extends StatelessWidget {
       elevation: 8.0,
       child: Container(
         margin: EdgeInsets.all(8.0),
-        padding: EdgeInsets.only(bottom: 8.0,left: 8.0),
+        padding: EdgeInsets.only(bottom: 8.0, left: 8.0),
         child: Column(
           children: <Widget>[
             Align(
               alignment: Alignment.topLeft,
               child: Container(
-                margin: EdgeInsets.symmetric(horizontal: 8.0,vertical: 10.0),
+                margin: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
                 child: Text(
                   'Contact Us',
                   style: TextStyle(color: Colors.white, fontSize: 20.0),
                 ),
               ),
             ),
-            Row(
-              children: <Widget>[
-                Image.asset('assets/images/internet.png'),
-                SizedBox(
-                  width: 20.0,
-                ),
-                Text(
-                  'http://m2cs.org/',
-                  maxLines: 2,
-                  style: TextStyle(color: Colors.white),
-                ),
-              ],
+            GestureDetector(
+              onTap: () => _launchUrl(webUrl),
+              child: Row(
+                children: <Widget>[
+                  Image.asset('assets/images/internet.png'),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Text(
+                    'http://m2cs.org/',
+                    maxLines: 2,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: 10.0,
             ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Image.asset('assets/images/facebook.png'),
-                SizedBox(
-                  width: 20.0,
-                ),
-                Flexible(
-                  child: Text('https://www.facebook.com/M2CS-179991619396541/',
+            GestureDetector(
+              onTap: () => _launchUrl(fbUrl),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Image.asset('assets/images/facebook.png'),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Flexible(
+                    child: Text(
+                        'https://www.facebook.com/M2CS-179991619396541/',
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            GestureDetector(
+              onTap: () {
+                _launchUrl(emailUrl);
+              },
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Image.asset('assets/images/email.png'),
+                  SizedBox(
+                    width: 20.0,
+                  ),
+                  Text('m2cs786@gmail.com',
                       style: TextStyle(color: Colors.white)),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                Image.asset('assets/images/email.png'),
-                SizedBox(
-                  width: 20.0,
-                ),
-                Text('m2cs786@gmail.com',
-                    style: TextStyle(color: Colors.white)),
-              ],
+                ],
+              ),
             )
           ],
         ),
@@ -98,7 +116,6 @@ class ProfilePage extends StatelessWidget {
               fontFamily: 'serif-monospace'),
         ),
         _buildAvatar(),
-
         _buildCard(),
       ],
     );
@@ -111,7 +128,7 @@ class ProfilePage extends StatelessWidget {
         children: <Widget>[
           Center(
               child:
-                  Image.asset('assets/images/m2cslogo.png', fit: BoxFit.cover)),
+              Image.asset('assets/images/m2cslogo.png', fit: BoxFit.cover)),
           BackdropFilter(
             filter: ui.ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
             child: Container(
@@ -123,4 +140,15 @@ class ProfilePage extends StatelessWidget {
       ),
     );
   }
+
+
+  _launchUrl(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+
 }
