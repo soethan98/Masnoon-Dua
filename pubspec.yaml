@@ -44,6 +44,11 @@ flutter:
     - assets/images/social.jpg
     - assets/images/trip.jpg
     - assets/images/weather.jpg
+    - assets/images/m2cslogo.png
+    - assets/images/logo.png
+    - assets/images/email.png
+    - assets/images/facebook.png
+    - assets/images/internet.png
 
 
 
