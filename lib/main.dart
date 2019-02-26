@@ -62,6 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
       _currentIndex = index;
     });
 
-    debugPrint('$index');
+
   }
 }

@@ -1,4 +1,3 @@
-
 class Dua {
   int dua_id;
   String dua_title;
@@ -8,5 +7,5 @@ class Dua {
   String sound_url;
 
   Dua(this.dua_id, this.dua_title, this.dua_arbic, this.dua_desc,
-      [this.image_path, this.sound_url]);
+      {this.sound_url});
 }

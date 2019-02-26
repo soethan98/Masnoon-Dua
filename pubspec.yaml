@@ -16,6 +16,15 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^5.0.1
+  audioplayers: ^0.8.2
+  swipedetector: ^1.2.0
+
+
+
+
+
+
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -51,6 +60,7 @@ flutter:
     - assets/images/email.png
     - assets/images/facebook.png
     - assets/images/internet.png
+    - assets/sounds/dua-after-drinking-water.ogg
 
 
 
