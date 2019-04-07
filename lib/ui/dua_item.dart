@@ -4,9 +4,10 @@ import 'package:async/async.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dua_detail_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dua_detail_page.dart';
 
 AudioPlayer advancedPlayer;
-
 
 AudioCache audioCache;
 
@@ -23,7 +24,10 @@ class DuaItem extends StatefulWidget {
 
 class DuaItemState extends State<DuaItem> {
   String mp3Uri;
+  final double barHeight = 55.0;
+  bool favValue = false;
 
+  var checker = 0;
 
   @override
   void initState() {
@@ -31,62 +35,25 @@ class DuaItemState extends State<DuaItem> {
     super.initState();
     advancedPlayer = new AudioPlayer();
     audioCache = new AudioCache(fixedPlayer: advancedPlayer);
+
+//    setState(() {
+//      duaCurrentItem = widget.dua.dua_id;
+//    });
+
+    checkPrefValue(widget.dua.dua_id);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(left: 12.0, right: 10.0),
-      decoration: BoxDecoration(
-          border: Border.all(width: 2.0),
-          borderRadius: BorderRadius.circular(12.0)),
-      child: Padding(
-        padding: EdgeInsets.only(top: 30.0, left: 8.0, right: 8.0, bottom: 4.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Text(
-                widget.dua.dua_title,
-                style: TextStyle(fontSize: 18.0),
-              ),
-              Text(
-                widget.dua.dua_arbic,
-                textDirection: TextDirection.rtl,
-                style: TextStyle(fontSize: 26.0),
-              ),
-              Text(
-                widget.dua.dua_desc,
-                style: TextStyle(fontSize: 14.0),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle, color: Colors.grey[800]),
-                child: isPlaying
-                    ? IconButton(
-                        icon: Icon(
-                          Icons.pause,
-                          color: Colors.white,
-                        ),
-                        onPressed: () => pauseSound())
-                    : IconButton(
-                        icon: Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                        ),
-                        onPressed: () => playSound(),
-                      ),
-              )
-            ],
-          ),
+    return Column(
+      children: <Widget>[
+        _buildCustomToolbar(context),
+        Container(
+          child: _buildDuaContent(context),
         ),
-      ),
+      ],
     );
   }
-
-
 
   void playSound() async {
     if (advancedPlayer.state == AudioPlayerState.PAUSED) {
@@ -114,18 +81,145 @@ class DuaItemState extends State<DuaItem> {
       isPlaying = false;
     });
   }
+
   @override
   void setState(fn) {
     // TODO: implement setState
     super.setState(fn);
   }
 
+  checkPrefValue(int _duaId) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      favValue = sharedPreferences.getBool(_duaId.toString());
+    });
+  }
 
-
-  void releaseAudio(){
+  void releaseAudio() {
     advancedPlayer.stop();
 //    setState(() {
 //      isPlaying
 //    });
+  }
+
+  Widget _buildDuaContent(BuildContext context) {
+    return Flexible(
+      flex: 3,
+      child: Center(
+        child: SizedBox.fromSize(
+          size: Size.fromHeight(500.0),
+          child: Container(
+            margin: EdgeInsets.only(left: 12.0, right: 10.0),
+            decoration: BoxDecoration(
+                border: Border.all(width: 2.0),
+                borderRadius: BorderRadius.circular(12.0)),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  top: 30.0, left: 8.0, right: 8.0, bottom: 4.0),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text(
+                      widget.dua.dua_title,
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                    Text(
+                      widget.dua.dua_arbic,
+                      textDirection: TextDirection.rtl,
+                      style: TextStyle(fontSize: 26.0),
+                    ),
+                    Text(
+                      widget.dua.dua_desc,
+                      style: TextStyle(fontSize: 14.0),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle, color: Colors.grey[800]),
+                      child: isPlaying
+                          ? IconButton(
+                              icon: Icon(
+                                Icons.pause,
+                                color: Colors.white,
+                              ),
+                              onPressed: () => pauseSound())
+                          : IconButton(
+                              icon: Icon(
+                                Icons.play_arrow,
+                                color: Colors.white,
+                              ),
+                              onPressed: () => playSound(),
+                            ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCustomToolbar(BuildContext context) {
+    final double statusBarHeight = MediaQuery.of(context).padding.top;
+    return Container(
+      padding: new EdgeInsets.only(top: statusBarHeight),
+      height: statusBarHeight + barHeight,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Flexible(
+            child: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.black),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                }),
+          ),
+          Container(
+            margin: new EdgeInsets.symmetric(horizontal: 4.0),
+            child: Row(
+              children: <Widget>[
+                IconButton(
+                    icon: Icon(
+                      favValue == true ? Icons.favorite : Icons.favorite_border,
+                      color: favValue == true ? Colors.red : null,
+                    ),
+                    onPressed: () {
+                      if(favValue == true){
+                        removePrefValue(widget.dua.dua_id.toString());
+                        setState(() {
+                          favValue = false;
+                        });
+                      }else{
+                        addPrefValue(widget.dua.dua_id.toString());
+                        setState(() {
+                          favValue = true;
+                        });
+                      }
+                    }),
+                IconButton(
+                  icon: Icon(Icons.share, color: Colors.black),
+                  onPressed: () {},
+                ),
+              ],
+//
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  addPrefValue(String _duaId) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool(_duaId, true);
+  }
+
+  removePrefValue(String _duaId) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool(_duaId, false);
   }
 }

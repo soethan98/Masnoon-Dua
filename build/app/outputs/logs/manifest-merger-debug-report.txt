@@ -4,7 +4,9 @@ ADDED from /home/soe_than/Documents/FlutterProjects/masnoon_dua/android/app/src/
 INJECTED from /home/soe_than/Documents/FlutterProjects/masnoon_dua/android/app/src/main/AndroidManifest.xml:1:1-39:12
 INJECTED from /home/soe_than/Documents/FlutterProjects/masnoon_dua/android/app/src/main/AndroidManifest.xml:1:1-39:12
 INJECTED from /home/soe_than/Documents/FlutterProjects/masnoon_dua/android/app/src/main/AndroidManifest.xml:1:1-39:12
+MERGED from [:shared_preferences] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/shared_preferences/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
 MERGED from [:url_launcher] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/url_launcher/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-14:12
+MERGED from [:sqflite] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/sqflite/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
 MERGED from [:audioplayers] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/audioplayers/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-11:12
 MERGED from [:path_provider] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/path_provider/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:2:1-7:12
 INJECTED from /home/soe_than/Documents/FlutterProjects/masnoon_dua/android/app/src/main/AndroidManifest.xml:1:1-39:12
@@ -72,8 +74,12 @@ uses-sdk
 INJECTED from /home/soe_than/Documents/FlutterProjects/masnoon_dua/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/soe_than/Documents/FlutterProjects/masnoon_dua/android/app/src/main/AndroidManifest.xml
 INJECTED from /home/soe_than/Documents/FlutterProjects/masnoon_dua/android/app/src/main/AndroidManifest.xml
+MERGED from [:shared_preferences] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/shared_preferences/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
+MERGED from [:shared_preferences] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/shared_preferences/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:url_launcher] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/url_launcher/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:url_launcher] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/url_launcher/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/sqflite/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
+MERGED from [:sqflite] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/sqflite/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
 MERGED from [:audioplayers] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/audioplayers/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:7:5-9:41
 MERGED from [:audioplayers] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/audioplayers/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:7:5-9:41
 MERGED from [:path_provider] /home/soe_than/Documents/FlutterProjects/masnoon_dua/build/path_provider/intermediates/merged_manifests/debug/processDebugManifest/merged/AndroidManifest.xml:5:5-44
