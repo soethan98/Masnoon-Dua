@@ -3,6 +3,7 @@ import 'package:masnoon_dua/data/dua_data.dart';
 import 'package:async/async.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:masnoon_dua/utils/database_helper.dart';
 import 'dua_detail_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dua_detail_page.dart';
@@ -27,18 +28,13 @@ class DuaItemState extends State<DuaItem> {
   final double barHeight = 55.0;
   bool favValue = false;
 
-  var checker = 0;
-
+  DatabaseHelper helper = DatabaseHelper();
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     advancedPlayer = new AudioPlayer();
     audioCache = new AudioCache(fixedPlayer: advancedPlayer);
-
-//    setState(() {
-//      duaCurrentItem = widget.dua.dua_id;
-//    });
 
     checkPrefValue(widget.dua.dua_id);
   }
@@ -97,9 +93,7 @@ class DuaItemState extends State<DuaItem> {
 
   void releaseAudio() {
     advancedPlayer.stop();
-//    setState(() {
-//      isPlaying
-//    });
+  
   }
 
   Widget _buildDuaContent(BuildContext context) {
@@ -111,7 +105,8 @@ class DuaItemState extends State<DuaItem> {
           child: Container(
             margin: EdgeInsets.only(left: 12.0, right: 10.0),
             decoration: BoxDecoration(
-                border: Border.all(width: 2.0),
+//                border: Border.all(width: 2.0),
+                color: Colors.white,
                 borderRadius: BorderRadius.circular(12.0)),
             child: Padding(
               padding: EdgeInsets.only(
@@ -167,6 +162,7 @@ class DuaItemState extends State<DuaItem> {
     final double statusBarHeight = MediaQuery.of(context).padding.top;
     return Container(
       padding: new EdgeInsets.only(top: statusBarHeight),
+      margin: new EdgeInsets.symmetric(horizontal: 8.0),
       height: statusBarHeight + barHeight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -188,13 +184,13 @@ class DuaItemState extends State<DuaItem> {
                       color: favValue == true ? Colors.red : null,
                     ),
                     onPressed: () {
-                      if(favValue == true){
-                        removePrefValue(widget.dua.dua_id.toString());
+                      if (favValue == true) {
+                        _delete();
                         setState(() {
                           favValue = false;
                         });
-                      }else{
-                        addPrefValue(widget.dua.dua_id.toString());
+                      } else {
+                        _save();
                         setState(() {
                           favValue = true;
                         });
@@ -205,7 +201,6 @@ class DuaItemState extends State<DuaItem> {
                   onPressed: () {},
                 ),
               ],
-//
             ),
           )
         ],
@@ -221,5 +216,15 @@ class DuaItemState extends State<DuaItem> {
   removePrefValue(String _duaId) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setBool(_duaId, false);
+  }
+
+  void _save() async {
+    int result = await helper.insertDua(widget.dua);
+    if (result != 0) addPrefValue(widget.dua.dua_id.toString());
+  }
+
+  void _delete() async {
+    int result = await helper.deleteFavDua(widget.dua.dua_id);
+    if (result != 0) removePrefValue(widget.dua.dua_id.toString());
   }
 }

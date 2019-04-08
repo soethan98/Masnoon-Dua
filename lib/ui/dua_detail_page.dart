@@ -1,24 +1,17 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:masnoon_dua/data/dua_category.dart';
 import 'package:masnoon_dua/data/dua_data.dart';
 import 'package:masnoon_dua/data/dua_data.dart';
 import 'package:masnoon_dua/utils/dua_list.dart';
 import 'package:masnoon_dua/ui/dua_item.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'package:masnoon_dua/main.dart';
 import 'dua_item.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:masnoon_dua/data/dua_category.dart';
 
 bool isPlaying = false;
 
-
 class DuaDetail extends StatefulWidget {
-  final int duaid;
+  final DuaCategory duaCategory;
 
-  DuaDetail(this.duaid);
+  DuaDetail(this.duaCategory);
 
   @override
   _DuaDetailState createState() => _DuaDetailState();
@@ -27,11 +20,7 @@ class DuaDetail extends StatefulWidget {
 class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
   List<Dua> duasList = new List();
 
-
-
-
   AppLifecycleState _lastLifecycleState;
-
 
   @override
   void initState() {
@@ -42,13 +31,11 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
     setListDuas();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Padding(
-        padding: EdgeInsets.only(right: 16.0,left: 16.0),
+      body: Container(
+        decoration: BoxDecoration(gradient: widget.duaCategory.background),
         child: PageView.builder(
           onPageChanged: (int pageChange) {
             if (advancedPlayer != null) {
@@ -58,10 +45,9 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
               isPlaying = false;
             });
           },
-//        controller: PageController(viewportFraction: 0.85),
+        controller: PageController(viewportFraction: 0.85),
           itemCount: duasList != null ? duasList.length : 0,
           itemBuilder: (context, index) {
-
             final item = duasList[index];
             return DuaItem(item);
           },
@@ -71,7 +57,7 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
   }
 
   void setListDuas() {
-    switch (widget.duaid) {
+    switch (widget.duaCategory.catId) {
       case 1:
         duasList = societyDuas;
         break;
@@ -119,8 +105,4 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
 
     WidgetsBinding.instance.removeObserver(this);
   }
-
-
-
-
 }

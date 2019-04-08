@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
             onTap: () {
               Navigator.of(context)
                   .push(new MaterialPageRoute(builder: (context) {
-               return  new DuaDetail(duaName[index].catId);
+               return  new DuaDetail(duaName[index]);
               }));
             },
             child: Stack(

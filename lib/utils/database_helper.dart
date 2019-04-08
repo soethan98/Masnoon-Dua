@@ -13,7 +13,7 @@ class DatabaseHelper{
   String colId = 'id';
   String colTitle = 'title';
   String colDescription = 'description';
-  String colArbic = 'arbic_trans';
+  String colArbic = 'arbic';
   String colSoundUrl = 'sound_url';
 
   DatabaseHelper._createInstance();
@@ -69,6 +69,13 @@ class DatabaseHelper{
     }
 
     return favList;
+  }
+
+  Future<int> deleteFavDua(int id) async {
+    var db = await this.database;
+    int result =
+        await db.rawDelete('DELETE FROM $favTable WHERE $colId = $id');
+    return result;
   }
 
 }

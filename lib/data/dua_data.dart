@@ -20,7 +20,7 @@ class Dua {
     map['title'] = dua_title;
     map['arbic'] = dua_arbic;
     map['description'] = dua_desc;
-    map['sound'] = sound_url;
+    map['sound_url'] = sound_url;
 
     return map;
   }
@@ -31,7 +31,7 @@ class Dua {
     this.dua_title = map['title'];
     this.dua_desc = map['description'];
     this.dua_arbic = map['arbic'];
-    this.sound_url = map['sound'];
+    this.sound_url = map['sound_url'];
   }
 
 
