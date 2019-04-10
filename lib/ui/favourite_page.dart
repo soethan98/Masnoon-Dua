@@ -21,6 +21,8 @@ class FavouritePageState extends State<FavouritePage> {
 
     helper.getFavList().then((duaList) {
       favDuaList = duaList;
+        
+
     });
   }
 
@@ -35,9 +37,9 @@ class FavouritePageState extends State<FavouritePage> {
                   height: double.infinity,
                   width: double.infinity)),
           BackdropFilter(
-            filter: ui.ImageFilter.blur(sigmaX: 0.0, sigmaY: 0.0),
+            filter: ui.ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
             child: Container(
-              color: Colors.black.withOpacity(0.0),
+              color: Colors.black.withOpacity(0.7),
             ),
           ),
           PageView.builder(

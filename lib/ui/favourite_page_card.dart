@@ -24,6 +24,7 @@ class _FavouriteCardState extends State<FavouriteCard> {
         child: Center(
         child: SizedBox.fromSize(
           size: Size.fromHeight(500.0),
+          // child: ,
 
         ),
         ),

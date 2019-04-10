@@ -7,56 +7,32 @@ final duaName = [
       1,
       'လူ့အဖွဲ့အစည်းနှင့်ဆိုင်သော',
       'assets/images/social.jpg',
-      LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: [const Color(0xFFFD8183), const Color(0xFFFB425A)],
-      )),
+      ),
   new DuaCategory(
       2,
       'သွားလာခြင်းနှင့်ဆိုင်သော',
       'assets/images/trip.jpg',
-      LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: [const Color(0xFFF8C08E), const Color(0xFFFDA65B)],
-      )),
+      ),
   new DuaCategory(
       3,
       'နမားဇ်နှင့်ဆိုင်သော',
       'assets/images/namaz.png',
-      LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: [const Color(0xFF6CD8F0), const Color(0xFF6AD89D)],
-      )),
+     ),
   new DuaCategory(
       4,
       'စားသောက်ခြင်းနှင့်ဆိုင်သော',
       'assets/images/food.jpg',
-      LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: [const Color(0xFFEE0979), const Color(0xFFFF6A00)],
-      )),
+     ),
   new DuaCategory(
       5,
       'နေ့စဉ်လှုပ်ရှားမှုနှင့်ဆိုင်သော',
       'assets/images/daily.jpg',
-      LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: [const Color(0xFFFBD3E9), const Color(0xFFBB377D)],
-      )),
+      ),
   new DuaCategory(
       6,
       'ရာသီဥတုနှင့်ဆိုင်သော',
       'assets/images/weather.jpg',
-      LinearGradient(
-        begin: Alignment.topRight,
-        end: Alignment.bottomLeft,
-        colors: [const Color(0xFFFBD3E9), const Color(0xFFBB377D)],
-      ))
+     )
 ];
 
 final societyDuas = [
