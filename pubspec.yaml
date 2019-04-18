@@ -19,6 +19,7 @@ dependencies:
   audioplayers: ^0.8.2
   sqflite: ^1.1.0
   shared_preferences: ^0.5.1+2
+  expandable: ^2.1.1
 
 
 
@@ -63,6 +64,24 @@ flutter:
     - assets/images/internet.png
     - assets/images/3.jpeg
     - assets/sounds/dua-after-drinking-water.ogg
+    - assets/sounds/dua-after-eating-dawat.ogg
+    - assets/sounds/dua-after-eating.ogg
+    - assets/sounds/dua-after-exiting-from-the-toilet.ogg
+    - assets/sounds/dua-after-waking-up-from-sleep.ogg
+    - assets/sounds/dua-after-wearing-clothes.ogg
+    - assets/sounds/dua-at-the-time-of-rain.ogg
+    - assets/sounds/dua-before-drinking-milk.ogg
+    - assets/sounds/dua-before-eating.ogg
+    - assets/sounds/dua-before-entering-the-toilet.ogg
+    - assets/sounds/dua-before-sleeping.ogg
+    - assets/sounds/dua-when-entering-home.ogg
+    - assets/sounds/dua-for-entering-masjid.ogg
+    - assets/sounds/dua-for-exiting-masjid.ogg
+    - assets/sounds/dua-for-when-looking-in-a-mirror.ogg
+    - assets/sounds/dua-to-meet-with-muslim.ogg
+    - assets/sounds/dua-when-clouds-thunder.ogg
+    - assets/sounds/dua-when-exiting-the-home.ogg
+
 
 
 

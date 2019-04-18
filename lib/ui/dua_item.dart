@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:masnoon_dua/data/dua_data.dart';
-import 'package:async/async.dart';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:masnoon_dua/utils/database_helper.dart';
 import 'dua_detail_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dua_detail_page.dart';
-
-AudioPlayer advancedPlayer;
-
-AudioCache audioCache;
 
 class DuaItem extends StatefulWidget {
   Dua dua;
@@ -28,13 +21,15 @@ class DuaItemState extends State<DuaItem> {
   final double barHeight = 55.0;
 
   DatabaseHelper helper = DatabaseHelper();
+  
+  
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    advancedPlayer = new AudioPlayer();
-    audioCache = new AudioCache(fixedPlayer: advancedPlayer);
+    
+
 
     checkPrefValue(widget.dua.dua_id);
     setState(() {
@@ -47,48 +42,10 @@ class DuaItemState extends State<DuaItem> {
     return _buildDuaContent(context);
   }
 
-  void playSound() async {
-    if (advancedPlayer.state == AudioPlayerState.PAUSED) {
-      await advancedPlayer.resume();
-    } else {
-      await audioCache.play(widget.dua.sound_url);
-    }
-
-    setState(() {
-      isPlaying = true;
-    });
-
-    advancedPlayer.completionHandler = () {
-      setState(() {
-        isPlaying = false;
-      });
-    };
-  }
-
-  void pauseSound() {
-    if (advancedPlayer.state == AudioPlayerState.PLAYING) {
-      advancedPlayer.pause();
-    }
-    setState(() {
-      isPlaying = false;
-    });
-  }
-
   @override
   void setState(fn) {
     // TODO: implement setState
     super.setState(fn);
-  }
-
-  checkPrefValue(int _duaId) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-      favValue = sharedPreferences.getBool(_duaId.toString());
-    });
-  }
-
-  void releaseAudio() {
-    advancedPlayer.stop();
   }
 
   Widget _buildDuaContent(BuildContext context) {
@@ -128,13 +85,13 @@ class DuaItemState extends State<DuaItem> {
                           Icons.pause,
                           color: Colors.white,
                         ),
-                        onPressed: () => pauseSound())
+                        onPressed: () => pause())
                     : IconButton(
                         icon: Icon(
                           Icons.play_arrow,
                           color: Colors.white,
                         ),
-                        onPressed: () => playSound(),
+                        onPressed: () => play(widget.dua.sound_url),
                       ),
               )
             ],
@@ -142,5 +99,44 @@ class DuaItemState extends State<DuaItem> {
         ),
       ),
     );
+  }
+
+  void pause() {
+    if (advancedPlayer.state == AudioPlayerState.PLAYING) {
+      advancedPlayer.pause();
+    }
+    setState(() {
+      isPlaying = false;
+    });
+  }
+
+  void play(String _url) async {
+    if (advancedPlayer.state == AudioPlayerState.PAUSED) {
+      await advancedPlayer.resume();
+    } else {
+      await audioCache.play(_url);
+    }
+
+    setState(() {
+      isPlaying = true;
+    });
+
+    advancedPlayer.completionHandler = () {
+      setState(() {
+        isPlaying = false;
+      });
+    };
+  }
+
+  checkPrefValue(int _duaId) async {
+
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      favValue = sharedPreferences.getBool(_duaId.toString());
+    });
+  }
+
+  void releaseAudio() {
+    advancedPlayer.stop();
   }
 }

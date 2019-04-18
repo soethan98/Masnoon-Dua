@@ -128,7 +128,10 @@ class ProfilePage extends StatelessWidget {
         children: <Widget>[
           Center(
               child:
-              Image.asset('assets/images/m2cslogo.png', fit: BoxFit.cover)),
+              Image.asset('assets/images/3.jpeg',
+               fit: BoxFit.cover,
+               height: double.infinity,
+               width: double.infinity,)),
           BackdropFilter(
             filter: ui.ImageFilter.blur(sigmaX: 0.5, sigmaY: 0.5),
             child: Container(

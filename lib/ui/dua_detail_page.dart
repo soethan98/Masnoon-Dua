@@ -7,10 +7,14 @@ import 'dua_item.dart';
 import 'package:masnoon_dua/data/dua_category.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:masnoon_dua/utils/database_helper.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
+Dua vDua;
+AudioPlayer advancedPlayer;
+AudioCache audioCache;
 bool isPlaying = false;
 bool favValue = false;
-Dua vDua;
 
 class DuaDetail extends StatefulWidget {
   final DuaCategory duaCategory;
@@ -27,14 +31,19 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
   AppLifecycleState _lastLifecycleState;
 
   DatabaseHelper helper = DatabaseHelper();
+  Dua dua;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    debugPrint('initState');
+    // debugPrint('initState _ $favValue');
+    advancedPlayer = new AudioPlayer();
+    audioCache = new AudioCache(fixedPlayer: advancedPlayer);
+
     WidgetsBinding.instance.addObserver(this);
     setListDuas();
+    checkPrefForFirstIndex(duasList[0].dua_id);
   }
 
   @override
@@ -59,10 +68,6 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
             onPressed: () {
               favValue == true ? _delete() : _save();
             },
-            // icon: Icon(
-            //   Icons.favorite,
-            //   color: Colors.red,
-            // ),
           ),
           IconButton(
             icon: Icon(Icons.share, color: Colors.black),
@@ -75,7 +80,6 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
           size: const Size.fromHeight(500.0),
           child: PageView.builder(
             onPageChanged: (int pageChange) {
-              debugPrint('$pageChange PageChange');
               if (advancedPlayer != null) {
                 advancedPlayer.stop();
               }
@@ -86,7 +90,6 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
             controller: PageController(viewportFraction: 1),
             itemCount: duasList != null ? duasList.length : 0,
             itemBuilder: (context, index) {
-              debugPrint('$index built');
               final item = duasList[index];
               return DuaItem(item);
             },
@@ -137,29 +140,19 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
     // TODO: implement dispose
     super.dispose();
 
+    debugPrint('state');
+
     if (advancedPlayer != null) {
       advancedPlayer.stop();
       audioCache.clearCache();
       isPlaying = false;
     }
 
+    if (vDua != null) {
+      vDua = null;
+    }
+
     WidgetsBinding.instance.removeObserver(this);
-  }
-
-  addPrefValue(String _duaId) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setBool(_duaId, true);
-     setState(() {
-          favValue = true;
-        });
-  }
-
-  removePrefValue(String _duaId) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setBool(_duaId, false);
-    setState(() {
-          favValue = false;
-        });
   }
 
   void _save() async {
@@ -170,5 +163,28 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
   void _delete() async {
     int result = await helper.deleteFavDua(vDua.dua_id);
     if (result != 0) removePrefValue(vDua.dua_id.toString());
+  }
+
+  addPrefValue(String _duaId) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool(_duaId, true);
+    setState(() {
+      favValue = true;
+    });
+  }
+
+  removePrefValue(String _duaId) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setBool(_duaId, false);
+    setState(() {
+      favValue = false;
+    });
+  }
+
+  checkPrefForFirstIndex(int _duaId) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    setState(() {
+      favValue = sharedPreferences.getBool(_duaId.toString());
+    });
   }
 }
