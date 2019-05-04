@@ -14,7 +14,7 @@ packages:
       name: audioplayers
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.8.2"
+    version: "0.11.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -109,6 +109,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  share:
+    dependency: "direct main"
+    description:
+      name: share
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.6.1+1"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -197,7 +204,7 @@ packages:
       name: uuid
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.3"
+    version: "2.0.1"
   vector_math:
     dependency: transitive
     description:

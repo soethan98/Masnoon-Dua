@@ -2,3 +2,4 @@ com.example.masnoondua
 drawable launch_background
 mipmap ic_launcher
 style LaunchTheme
+xml file_paths

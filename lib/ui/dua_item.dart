@@ -4,6 +4,13 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:masnoon_dua/utils/database_helper.dart';
 import 'dua_detail_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
+import 'dart:ui' as ui;
+
+const Base64Codec base64 = Base64Codec();
+
+
+var bytes;
 
 class DuaItem extends StatefulWidget {
   Dua dua;
@@ -20,21 +27,22 @@ class DuaItemState extends State<DuaItem> {
   String mp3Uri;
   final double barHeight = 55.0;
 
-  DatabaseHelper helper = DatabaseHelper();
-  
-  
+DatabaseHelper helper = DatabaseHelper();
+
+
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    
-
-
     checkPrefValue(widget.dua.dua_id);
     setState(() {
       vDua = widget.dua;
+     
     });
+
+
   }
 
   @override
@@ -50,7 +58,7 @@ class DuaItemState extends State<DuaItem> {
 
   Widget _buildDuaContent(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 12.0, right: 10.0),
+      margin: EdgeInsets.only(left: 24.0, right: 24.0),
       decoration: BoxDecoration(
           border: Border.all(width: 2.0),
           color: Colors.white,
@@ -129,7 +137,6 @@ class DuaItemState extends State<DuaItem> {
   }
 
   checkPrefValue(int _duaId) async {
-
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     setState(() {
       favValue = sharedPreferences.getBool(_duaId.toString());
