@@ -83,7 +83,8 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
           IconButton(
             icon: Icon(Icons.share, color: Colors.black),
             onPressed: () {
-              _capturePng();
+              Share.share(
+                  '${vDua.dua_title}\n${vDua.dua_arbic}\n${vDua.dua_desc}');
             },
           )
         ],
@@ -153,8 +154,6 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
     // TODO: implement dispose
     super.dispose();
 
-    debugPrint('state');
-
     if (advancedPlayer != null) {
       advancedPlayer.stop();
       audioCache.clearCache();
@@ -178,16 +177,6 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
     if (result != 0) removePrefValue(vDua.dua_id.toString());
   }
 
-  Future<Null> getFilesPath() async {
-    Directory tempDir = await getTemporaryDirectory();
-    String tempPath = tempDir.path;
-
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String appDocPath = appDocDir.path;
-
-    debugPrint('Temp = ${tempPath}, $appDocPath');
-  }
-
   addPrefValue(String _duaId) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.setBool(_duaId, true);
@@ -209,37 +198,5 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
     setState(() {
       favValue = sharedPreferences.getBool(_duaId.toString());
     });
-  }
-
-  void _capturePng() async {
-    // ui.Image image;
-    // bool catched = false;
-    // RenderRepaintBoundary boundary =
-    // gg.currentContext.findRenderObject();
-    // try {
-    //   image = await boundary.toImage();
-    //   catched = true;
-    // } catch (exception) {
-    //   catched = false;
-    //   Timer(Duration(milliseconds: 1), () {
-    //     _capturePng();
-    //   });
-    // }
-    // if (catched) {
-    //   ByteData byteData =
-    //   await image.toByteData(format: ui.ImageByteFormat.png);
-    //   Uint8List pngBytes = byteData.buffer.asUint8List();
-    //   var bs64 = base64Encode(pngBytes);
-    //   print(pngBytes);
-    //   print(bs64);
-
-    //   setState(() {
-    //     bytes = base64.decode(bs64);
-    // });
-
-    Share.share('${vDua.dua_title}\n${vDua.dua_arbic}\n${vDua.dua_desc}');
-
-    // await Share.file(
-    //     'Share Image', 'dua.png', bytes.buffer.asUint8List(), 'image/png');
   }
 }

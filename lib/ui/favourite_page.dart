@@ -3,9 +3,13 @@ import 'package:masnoon_dua/utils/database_helper.dart';
 import 'dart:ui' as ui;
 import 'package:masnoon_dua/data/dua_data.dart';
 import 'favourite_page_expand.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
-List<Dua> favDuaList  = new List();
+import 'dua_detail_page.dart';
+import 'dua_item.dart';
 
+List<Dua> favDuaList = new List();
 
 class FavouritePage extends StatefulWidget {
   @override
@@ -14,19 +18,45 @@ class FavouritePage extends StatefulWidget {
   }
 }
 
-class FavouritePageState extends State<FavouritePage> {
+class FavouritePageState extends State<FavouritePage> with WidgetsBindingObserver {
   DatabaseHelper helper = DatabaseHelper();
+
+  AppLifecycleState _favLifecycleState;
 
   @override
   void initState() {
     super.initState();
+     WidgetsBinding.instance.addObserver(this);
 
-    
     helper.getFavList().then((duaList) {
       setState(() {
         favDuaList = duaList;
       });
     });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    if (advancedPlayer != null) {
+      advancedPlayer.stop();
+      audioCache.clearCache();
+      isPlaying = false;
+    }
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    _favLifecycleState = state;
+    debugPrint('$state');
+    if (_favLifecycleState == AppLifecycleState.paused ||
+        _favLifecycleState == AppLifecycleState.inactive) {
+      if (advancedPlayer != null) advancedPlayer.stop();
+      setState(() {
+        isPlaying = false;
+      });
+    }
   }
 
   @override

@@ -9,7 +9,6 @@ import 'dart:ui' as ui;
 
 const Base64Codec base64 = Base64Codec();
 
-
 var bytes;
 
 class DuaItem extends StatefulWidget {
@@ -27,9 +26,7 @@ class DuaItemState extends State<DuaItem> {
   String mp3Uri;
   final double barHeight = 55.0;
 
-DatabaseHelper helper = DatabaseHelper();
-
-
+  DatabaseHelper helper = DatabaseHelper();
 
   @override
   void initState() {
@@ -39,10 +36,7 @@ DatabaseHelper helper = DatabaseHelper();
     checkPrefValue(widget.dua.dua_id);
     setState(() {
       vDua = widget.dua;
-     
     });
-
-
   }
 
   @override
@@ -64,7 +58,8 @@ DatabaseHelper helper = DatabaseHelper();
           color: Colors.white,
           borderRadius: BorderRadius.circular(12.0)),
       child: Padding(
-        padding: EdgeInsets.only(top: 30.0, left: 8.0, right: 8.0, bottom: 4.0),
+        padding:
+            EdgeInsets.only(top: 30.0, left: 8.0, right: 8.0, bottom: 4.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
