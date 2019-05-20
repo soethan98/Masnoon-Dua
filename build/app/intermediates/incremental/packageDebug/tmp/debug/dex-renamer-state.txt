@@ -1,4 +1,4 @@
-#Sun May 05 11:04:36 MMT 2019
+#Mon May 20 19:35:40 MMT 2019
 base.0=/home/soe_than/Documents/FlutterProjects/masnoon_dua/build/app/intermediates/transforms/dexMerger/debug/0
 path.0=classes.dex
 renamed.0=classes.dex

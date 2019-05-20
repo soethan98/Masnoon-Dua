@@ -30,7 +30,6 @@ class DuaItemState extends State<DuaItem> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
 
     checkPrefValue(widget.dua.dua_id);

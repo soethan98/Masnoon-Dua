@@ -73,21 +73,34 @@ flutter:
     - assets/sounds/dua-after-drinking-water.ogg
     - assets/sounds/dua-after-eating-dawat.ogg
     - assets/sounds/dua-after-eating.ogg
+    - assets/sounds/dua-before-eating.ogg
     - assets/sounds/dua-after-exiting-from-the-toilet.ogg
+    - assets/sounds/dua-before-entering-the-toilet.ogg
     - assets/sounds/dua-after-waking-up-from-sleep.ogg
+    - assets/sounds/dua-before-sleeping.ogg
     - assets/sounds/dua-after-wearing-clothes.ogg
     - assets/sounds/dua-at-the-time-of-rain.ogg
     - assets/sounds/dua-before-drinking-milk.ogg
-    - assets/sounds/dua-before-eating.ogg
-    - assets/sounds/dua-before-entering-the-toilet.ogg
-    - assets/sounds/dua-before-sleeping.ogg
     - assets/sounds/dua-when-entering-home.ogg
+    - assets/sounds/dua-when-exiting-the-home.ogg
     - assets/sounds/dua-for-entering-masjid.ogg
     - assets/sounds/dua-for-exiting-masjid.ogg
     - assets/sounds/dua-for-when-looking-in-a-mirror.ogg
     - assets/sounds/dua-to-meet-with-muslim.ogg
     - assets/sounds/dua-when-clouds-thunder.ogg
-    - assets/sounds/dua-when-exiting-the-home.ogg
+    - assets/sounds/1.ogg
+    - assets/sounds/2.ogg
+    - assets/sounds/3.ogg
+    - assets/sounds/5.ogg
+    - assets/sounds/6.ogg
+    - assets/sounds/7.ogg
+    - assets/sounds/8.ogg
+    - assets/sounds/9.ogg
+    - assets/sounds/11.ogg
+    - assets/sounds/12.ogg
+    - assets/sounds/13.ogg
+    - assets/sounds/14.ogg
+    
 
 
 

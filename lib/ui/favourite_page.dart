@@ -7,7 +7,6 @@ import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 import 'dua_detail_page.dart';
-import 'dua_item.dart';
 
 List<Dua> favDuaList = new List();
 

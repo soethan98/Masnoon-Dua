@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:async/async.dart';
 
 class ProfilePage extends StatelessWidget {
   String webUrl = 'http://m2cs.org/';

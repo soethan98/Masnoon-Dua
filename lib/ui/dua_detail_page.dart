@@ -4,11 +4,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'package:masnoon_dua/data/dua_data.dart';
 import 'package:masnoon_dua/utils/dua_list.dart';
 import 'package:masnoon_dua/ui/dua_item.dart';
-import 'package:path_provider/path_provider.dart';
 import 'dua_item.dart';
 import 'package:masnoon_dua/data/dua_category.dart';
 import 'package:shared_preferences/shared_preferences.dart';
