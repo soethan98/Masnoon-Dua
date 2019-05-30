@@ -16,7 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   url_launcher: ^5.0.1
-  audioplayers: 
+  audioplayers: ^0.12.0
   sqflite: ^1.1.0
   shared_preferences: ^0.5.1+2
   expandable: ^2.1.1
@@ -88,18 +88,18 @@ flutter:
     - assets/sounds/dua-for-when-looking-in-a-mirror.ogg
     - assets/sounds/dua-to-meet-with-muslim.ogg
     - assets/sounds/dua-when-clouds-thunder.ogg
-    - assets/sounds/1.ogg
-    - assets/sounds/2.ogg
-    - assets/sounds/3.ogg
-    - assets/sounds/5.ogg
-    - assets/sounds/6.ogg
-    - assets/sounds/7.ogg
-    - assets/sounds/8.ogg
-    - assets/sounds/9.ogg
-    - assets/sounds/11.ogg
-    - assets/sounds/12.ogg
-    - assets/sounds/13.ogg
-    - assets/sounds/14.ogg
+    - assets/sounds/1.mp3
+    - assets/sounds/2.mp3
+    - assets/sounds/3.mp3
+    - assets/sounds/5.mp3
+    - assets/sounds/6.mp3
+    - assets/sounds/7.mp3
+    - assets/sounds/8.mp3
+    - assets/sounds/9.mp3
+    - assets/sounds/11.mp3
+    - assets/sounds/12.mp3
+    - assets/sounds/13.mp3
+    - assets/sounds/14.mp3
     
 
 
