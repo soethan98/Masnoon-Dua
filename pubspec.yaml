@@ -1,0 +1,135 @@
+name: masnoon_dua
+description: A new Flutter application.
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# Read more about versioning at semver.org.
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^6.3.0
+  audioplayers: ^5.2.1
+  sqflite: ^2.3.3
+  shared_preferences: ^2.2.2
+  expandable: ^5.0.1
+  flutter_riverpod: ^3.0.0-dev.3
+  riverpod_annotation: ^3.0.0-dev.3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  riverpod_generator: ^3.0.0-dev.11
+  riverpod_lint: ^3.0.0-dev.4
+  build_runner:
+
+
+# For information on the generic Dart part of this file, see the
+# following page: https://www.dartlang.org/tools/pub/pubspec
+
+# The following section is specific to Flutter.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - assets/images/daily.jpg
+    - assets/images/food.jpg
+    - assets/images/namaz.png
+    - assets/images/social.jpg
+    - assets/images/trip.jpg
+    - assets/images/weather.jpg
+    - assets/images/m2cslogo.png
+    - assets/images/logo.png
+    - assets/images/email.png
+    - assets/images/facebook.png
+    - assets/images/internet.png
+    - assets/images/3.jpeg
+    - assets/sounds/dua-after-drinking-water.mp3
+    - assets/sounds/dua-after-eating-dawat .mp3
+    - assets/sounds/dua-after-eating.mp3
+    - assets/sounds/dua-before-eating.mp3
+    - assets/sounds/dua-after-exiting-from-the-toilet.mp3
+    - assets/sounds/dua-before-entering-the-toilet.mp3
+    - assets/sounds/dua-after-waking-up-from-sleep.mp3
+    - assets/sounds/dua-before-sleeping.mp3
+    - assets/sounds/dua-after-wearing-clothes.mp3
+    - assets/sounds/dua-at-the-time-of-rain.mp3
+    - assets/sounds/dua-before-drinking-milk.mp3
+    - assets/sounds/dua-for-entering-house.mp3
+    - assets/sounds/dua-when-exiting-the-home .mp3
+    - assets/sounds/dua-for-entering-masjid.mp3
+    - assets/sounds/dua-for-exiting-masjid.mp3
+    - assets/sounds/dua-for-when-looking-in-a-mirror.mp3
+    - assets/sounds/dua-to-meet-with-muslim.mp3
+    - assets/sounds/dua-when-clouds-thunder.mp3
+    - assets/sounds/1.mp3
+    - assets/sounds/2.mp3
+    - assets/sounds/3.mp3
+    - assets/sounds/5.mp3
+    - assets/sounds/6.mp3
+    - assets/sounds/7.mp3
+    - assets/sounds/8.mp3
+    - assets/sounds/9.mp3
+    - assets/sounds/11.mp3
+    - assets/sounds/12.mp3
+    - assets/sounds/13.mp3
+    - assets/sounds/14.mp3
+    
+
+
+
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.io/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.io/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.io/custom-fonts/#from-packages
