@@ -6,11 +6,6 @@ import 'ui/home_page.dart';
 import 'ui/favourite_page.dart';
 
 void main() {
-  //  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-  //   statusBarColor: Colors.red, // Change this to your desired color
-  //   statusBarIconBrightness: Brightness.dark, // For light text color on the status bar
-  //   statusBarBrightness: Brightness.dark, // For devices with a dark status bar background
-  // ));
    runApp(ProviderScope(child: MyApp()));
 }
 

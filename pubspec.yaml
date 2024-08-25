@@ -22,6 +22,7 @@ dependencies:
   expandable: ^5.0.1
   flutter_riverpod: ^3.0.0-dev.3
   riverpod_annotation: ^3.0.0-dev.3
+  share_plus: ^10.0.2
 
 
 

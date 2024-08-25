@@ -4,11 +4,14 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:masnoon_dua/data/dua_data.dart';
+import 'package:masnoon_dua/providers/active_dua_provider.dart';
 import 'package:masnoon_dua/ui/dua_item_clone.dart';
 import 'package:masnoon_dua/utils/dua_list.dart';
 import 'package:masnoon_dua/ui/dua_item.dart';
 import 'package:masnoon_dua/utils/dua_player.dart';
+import 'package:share_plus/share_plus.dart';
 import 'dua_item.dart';
 import 'package:masnoon_dua/data/dua_category.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,14 +20,13 @@ import 'package:audioplayers/audioplayers.dart';
 import 'dart:ui' as ui;
 import 'dart:ui';
 
-
 Dua? vDua;
 // AudioPlayer? advancedPlayer;
 // AudioCache? audioCache;
 bool isPlaying = false;
 bool favValue = false;
 
-class DuaDetail extends StatefulWidget {
+class DuaDetail extends ConsumerStatefulWidget {
   final DuaCategory duaCategory;
 
   DuaDetail(this.duaCategory);
@@ -33,7 +35,8 @@ class DuaDetail extends StatefulWidget {
   _DuaDetailState createState() => _DuaDetailState();
 }
 
-class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
+class _DuaDetailState extends ConsumerState<DuaDetail>
+    with WidgetsBindingObserver {
   List<Dua> duasList = [];
 
   AppLifecycleState? _lastLifecycleState;
@@ -46,14 +49,19 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     setListDuas();
+
     checkPrefForFirstIndex(duasList[0].dua_id);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref
+          .read(activeDuaNotifierProvider.notifier)
+          .updateCurrentActiveDua(duasList[0]);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        
         leading: IconButton(
             icon: Icon(Icons.arrow_back, color: Colors.black),
             onPressed: () {
@@ -71,13 +79,20 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
               favValue == true ? _delete() : _save();
             },
           ),
-          IconButton(
-            icon: Icon(Icons.share, color: Colors.black),
-            onPressed: () {
-              // Share.share(
-              //     '${vDua.dua_title}\n${vDua.dua_arbic}\n${vDua.dua_desc}');
-            },
-          )
+          Builder(builder: (context) {
+            final currentActiveDua = ref.watch(activeDuaNotifierProvider);
+            if (currentActiveDua == null) {
+              return SizedBox.shrink();
+            }
+
+            return IconButton(
+              icon: Icon(Icons.share, color: Colors.black),
+              onPressed: () {
+                Share.share(
+                    '${currentActiveDua.dua_title}\n${currentActiveDua.dua_arbic}\n${currentActiveDua.dua_desc}');
+              },
+            );
+          })
         ],
       ),
       body: Center(
@@ -85,8 +100,12 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
           size: const Size.fromHeight(500.0),
           child: PageView.builder(
             onPageChanged: (int pageChange) async {
+              debugPrint('PageChange -- $pageChange');
               await DuaPlayer().stop();
-              
+              ref
+                  .read(activeDuaNotifierProvider.notifier)
+                  .updateCurrentActiveDua(duasList[pageChange]);
+
               setState(() {
                 isPlaying = false;
               });
@@ -95,10 +114,7 @@ class _DuaDetailState extends State<DuaDetail> with WidgetsBindingObserver {
             itemCount: duasList.length,
             itemBuilder: (context, index) {
               final item = duasList[index];
-              return DuaItem(
-                item
-               
-              );
+              return DuaItem(item);
             },
           ),
         ),

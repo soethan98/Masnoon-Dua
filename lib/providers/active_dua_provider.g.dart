@@ -1,27 +1,26 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'favorite_controller.dart';
+part of 'active_dua_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$favoriteControllerHash() =>
-    r'd6b490d6a9c0e2fc409534411c6090842083b1ed';
+String _$activeDuaNotifierHash() => r'd177dd92f7e6f32b19bbb62d3a410ed8d68caef3';
 
-/// See also [FavoriteController].
-@ProviderFor(FavoriteController)
-final favoriteControllerProvider =
-    AutoDisposeNotifierProvider<FavoriteController, List<FavoriteDua>>.internal(
-  FavoriteController.new,
-  name: r'favoriteControllerProvider',
+/// See also [ActiveDuaNotifier].
+@ProviderFor(ActiveDuaNotifier)
+final activeDuaNotifierProvider =
+    AutoDisposeNotifierProvider<ActiveDuaNotifier, Dua?>.internal(
+  ActiveDuaNotifier.new,
+  name: r'activeDuaNotifierProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$favoriteControllerHash,
+      : _$activeDuaNotifierHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$FavoriteController = AutoDisposeNotifier<List<FavoriteDua>>;
+typedef _$ActiveDuaNotifier = AutoDisposeNotifier<Dua?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, inference_failure_on_uninitialized_variable, inference_failure_on_function_return_type, inference_failure_on_untyped_parameter, deprecated_member_use_from_same_package
