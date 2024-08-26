@@ -1,6 +1,4 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:masnoon_dua/data/dua_data.dart';
-import 'package:masnoon_dua/providers/favorite_dua.dart';
 import 'package:masnoon_dua/utils/database_helper.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'active_dua_provider.g.dart';

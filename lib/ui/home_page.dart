@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masnoon_dua/data/dua_category.dart';
 import 'package:masnoon_dua/utils/dua_list.dart';
+
 import 'dua_detail_page.dart';
 
 class HomePage extends StatelessWidget {

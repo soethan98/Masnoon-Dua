@@ -1,9 +1,9 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:masnoon_dua/providers/favorite_dua.dart';
+import 'package:masnoon_dua/providers/ui_dua.dart';
 
 class FavoriteDuaItem extends StatelessWidget {
-  final FavoriteDua duaItem;
+  final UiDua duaItem;
   final bool isFav;
   final VoidCallback onRemoveFromFav; 
   final VoidCallback onTogglePlayState;

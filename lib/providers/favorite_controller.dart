@@ -1,7 +1,5 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:masnoon_dua/data/dua_data.dart';
-import 'package:masnoon_dua/providers/favorite_dua.dart';
+import 'package:masnoon_dua/providers/ui_dua.dart';
 import 'package:masnoon_dua/utils/database_helper.dart';
 import 'package:masnoon_dua/utils/dua_player.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -11,20 +9,20 @@ part 'favorite_controller.g.dart';
 @riverpod
 class FavoriteController extends _$FavoriteController {
   @override
-  List<FavoriteDua> build() {
+  List<UiDua> build() {
     DuaPlayer().listenToAudioCompletion().listen((_) {
       if (state.any((element) => element.isPlaying)) {
         state = state.map((item) => item.copywith(isPlaying: false)).toList();
       }
     });
-    return <FavoriteDua>[];
+    return <UiDua>[];
   }
 
   void requestFavoriteList() async {
     final result = await DatabaseHelper().getFavList();
 
     state =
-        result.map((item) => FavoriteDua(dua: item, isPlaying: false)).toList();
+        result.map((item) => UiDua(dua: item, isPlaying: false)).toList();
   }
 
   void removeFromFavorite(Dua dua) async {
