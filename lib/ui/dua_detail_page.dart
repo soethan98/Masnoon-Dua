@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:masnoon_dua/data/dua_category.dart';
 import 'package:masnoon_dua/data/dua_data.dart';
 import 'package:masnoon_dua/providers/active_dua_provider.dart';
+import 'package:masnoon_dua/providers/main_dua_controller.dart';
 import 'package:masnoon_dua/ui/dua_item.dart';
+import 'package:masnoon_dua/ui/dua_item_clone.dart';
 import 'package:masnoon_dua/utils/dua_list.dart';
 import 'package:masnoon_dua/utils/dua_player.dart';
 import 'package:share_plus/share_plus.dart';
@@ -29,22 +31,22 @@ class _DuaDetailState extends ConsumerState<DuaDetail>
 
   AppLifecycleState? _lastLifecycleState;
 
-
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    setListDuas();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
-          .read(activeDuaNotifierProvider.notifier)
-          .updateCurrentActiveDua(duasList[0]);
+          .read(mainDuaControllerProvider.notifier)
+          .loadSongs(widget.duaCategory.catId);
+     
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final currentActiveDua = ref.watch(activeDuaNotifierProvider);
+    final duas = ref.watch(mainDuaControllerProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -95,17 +97,20 @@ class _DuaDetailState extends ConsumerState<DuaDetail>
               await DuaPlayer().stop();
               ref
                   .read(activeDuaNotifierProvider.notifier)
-                  .updateCurrentActiveDua(duasList[pageChange]);
+                  .updateCurrentActiveDua(duas[pageChange].dua);
 
               setState(() {
                 isPlaying = false;
               });
             },
             controller: PageController(viewportFraction: 1),
-            itemCount: duasList.length,
+            itemCount: duas.length,
             itemBuilder: (context, index) {
-              final item = duasList[index];
-              return DuaItem(item);
+              final item = duas[index];
+              return DuaItemClone(
+                duaItem: item,
+              
+              );
             },
           ),
         ),
@@ -113,28 +118,28 @@ class _DuaDetailState extends ConsumerState<DuaDetail>
     );
   }
 
-  void setListDuas() {
-    switch (widget.duaCategory.catId) {
-      case 1:
-        duasList = societyDuas;
-        break;
-      case 2:
-        duasList = travelDuas;
-        break;
-      case 3:
-        duasList = namazDuas;
-        break;
-      case 4:
-        duasList = foodDuas;
-        break;
-      case 5:
-        duasList = dailyDuas;
-        break;
-      case 6:
-        duasList = weatherDuas;
-        break;
-    }
-  }
+  // void setListDuas() {
+  //   switch (widget.duaCategory.catId) {
+  //     case 1:
+  //       duasList = societyDuas;
+  //       break;
+  //     case 2:
+  //       duasList = travelDuas;
+  //       break;
+  //     case 3:
+  //       duasList = namazDuas;
+  //       break;
+  //     case 4:
+  //       duasList = foodDuas;
+  //       break;
+  //     case 5:
+  //       duasList = dailyDuas;
+  //       break;
+  //     case 6:
+  //       duasList = weatherDuas;
+  //       break;
+  //   }
+  // }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {

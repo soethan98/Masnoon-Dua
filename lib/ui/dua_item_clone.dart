@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:masnoon_dua/data/dua_data.dart';
+import 'package:masnoon_dua/providers/favorite_dua.dart';
 
-class DuaItemClone extends StatelessWidget {
-  final Dua dua;
-  final bool isFavorite;
-  final bool isPlaying;
-  final VoidCallback onTogglePlaying;
+class DuaItemClone extends ConsumerWidget {
+  final FavoriteDua duaItem;
+  // final bool isFavorite;
+  // final bool isPlaying;
 
   const DuaItemClone(
       {super.key,
-      required this.dua,
-      this.isFavorite = false,
-      required this.onTogglePlaying,
-      required this.isPlaying});
+      required this.duaItem,
+      });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     return Container(
       margin: EdgeInsets.only(left: 24.0, right: 24.0),
       decoration: BoxDecoration(
@@ -31,34 +30,34 @@ class DuaItemClone extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Text(
-                dua.dua_title,
+                duaItem.dua.dua_title,
                 style: TextStyle(fontSize: 18.0),
               ),
               Text(
-                dua.dua_arbic,
+                duaItem.dua.dua_arbic,
                 textDirection: TextDirection.rtl,
                 style: TextStyle(fontSize: 26.0),
               ),
               Text(
-                dua.dua_desc,
+                duaItem.dua.dua_desc,
                 style: TextStyle(fontSize: 14.0),
               ),
               Container(
                 decoration: BoxDecoration(
                     shape: BoxShape.circle, color: Colors.grey[800]),
-                child: isPlaying
+                child: duaItem.isPlaying 
                     ? IconButton(
                         icon: Icon(
                           Icons.pause,
                           color: Colors.white,
                         ),
-                        onPressed: onTogglePlaying)
+                        onPressed: (){})
                     : IconButton(
                         icon: Icon(
                           Icons.play_arrow,
                           color: Colors.white,
                         ),
-                        onPressed: onTogglePlaying,
+                        onPressed: (){},
                       ),
               )
             ],
