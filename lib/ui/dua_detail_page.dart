@@ -1,24 +1,12 @@
-import 'dart:async';
-import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:masnoon_dua/data/dua_category.dart';
 import 'package:masnoon_dua/data/dua_data.dart';
 import 'package:masnoon_dua/providers/active_dua_provider.dart';
-import 'package:masnoon_dua/ui/dua_item_clone.dart';
-import 'package:masnoon_dua/utils/dua_list.dart';
 import 'package:masnoon_dua/ui/dua_item.dart';
+import 'package:masnoon_dua/utils/dua_list.dart';
 import 'package:masnoon_dua/utils/dua_player.dart';
 import 'package:share_plus/share_plus.dart';
-import 'dua_item.dart';
-import 'package:masnoon_dua/data/dua_category.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:masnoon_dua/utils/database_helper.dart';
-import 'package:audioplayers/audioplayers.dart';
-import 'dart:ui' as ui;
-import 'dart:ui';
 
 Dua? vDua;
 // AudioPlayer? advancedPlayer;
@@ -41,16 +29,12 @@ class _DuaDetailState extends ConsumerState<DuaDetail>
 
   AppLifecycleState? _lastLifecycleState;
 
-  DatabaseHelper helper = DatabaseHelper();
-  Dua? dua;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     setListDuas();
-
-    checkPrefForFirstIndex(duasList[0].dua_id);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref
           .read(activeDuaNotifierProvider.notifier)
@@ -60,6 +44,8 @@ class _DuaDetailState extends ConsumerState<DuaDetail>
 
   @override
   Widget build(BuildContext context) {
+    final currentActiveDua = ref.watch(activeDuaNotifierProvider);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -68,31 +54,36 @@ class _DuaDetailState extends ConsumerState<DuaDetail>
               Navigator.of(context).pop();
             }),
         actions: <Widget>[
-          IconButton(
-            icon: favValue == true
-                ? Icon(
-                    Icons.favorite,
-                    color: Colors.red,
-                  )
-                : Icon(Icons.favorite_border, color: Colors.black),
-            onPressed: () {
-              favValue == true ? _delete() : _save();
-            },
-          ),
           Builder(builder: (context) {
-            final currentActiveDua = ref.watch(activeDuaNotifierProvider);
-            if (currentActiveDua == null) {
-              return SizedBox.shrink();
-            }
+            final isCurrentDuaFavorite =
+                ref.watch(isCurrentDuaFavoriteProvider);
 
             return IconButton(
+              icon: isCurrentDuaFavorite
+                  ? Icon(
+                      Icons.favorite,
+                      color: Colors.red,
+                    )
+                  : Icon(Icons.favorite_border, color: Colors.black),
+              onPressed: () {
+                isCurrentDuaFavorite
+                    ? ref
+                        .read(isCurrentDuaFavoriteProvider.notifier)
+                        .removeFromFavorite(currentActiveDua!)
+                    : ref
+                        .read(isCurrentDuaFavoriteProvider.notifier)
+                        .addToFavorite(currentActiveDua!);
+              },
+            );
+          }),
+          if (currentActiveDua != null)
+            IconButton(
               icon: Icon(Icons.share, color: Colors.black),
               onPressed: () {
                 Share.share(
                     '${currentActiveDua.dua_title}\n${currentActiveDua.dua_arbic}\n${currentActiveDua.dua_desc}');
               },
-            );
-          })
+            )
         ],
       ),
       body: Center(
@@ -162,7 +153,7 @@ class _DuaDetailState extends ConsumerState<DuaDetail>
   void dispose() {
     super.dispose();
 
-    DuaPlayer().dispose();
+    // DuaPlayer().dispose();
     isPlaying = false;
 
     if (vDua != null) {
@@ -172,36 +163,36 @@ class _DuaDetailState extends ConsumerState<DuaDetail>
     WidgetsBinding.instance.removeObserver(this);
   }
 
-  void _save() async {
-    int result = await helper.insertDua(vDua!);
-    if (result != 0) addPrefValue(vDua!.dua_id.toString());
-  }
+  // void _save() async {
+  //   int result = await helper.insertDua(vDua!);
+  //   if (result != 0) addPrefValue(vDua!.dua_id.toString());
+  // }
 
-  void _delete() async {
-    int result = await helper.deleteFavDua(vDua!.dua_id);
-    if (result != 0) removePrefValue(vDua!.dua_id.toString());
-  }
+  // void _delete() async {
+  //   int result = await helper.deleteFavDua(vDua!.dua_id);
+  //   if (result != 0) removePrefValue(vDua!.dua_id.toString());
+  // }
 
-  addPrefValue(String _duaId) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setBool(_duaId, true);
-    setState(() {
-      favValue = true;
-    });
-  }
+  // addPrefValue(String _duaId) async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   sharedPreferences.setBool(_duaId, true);
+  //   setState(() {
+  //     favValue = true;
+  //   });
+  // }
 
-  removePrefValue(String _duaId) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    sharedPreferences.setBool(_duaId, false);
-    setState(() {
-      favValue = false;
-    });
-  }
+  // removePrefValue(String _duaId) async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   sharedPreferences.setBool(_duaId, false);
+  //   setState(() {
+  //     favValue = false;
+  //   });
+  // }
 
-  checkPrefForFirstIndex(int _duaId) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    setState(() {
-      favValue = sharedPreferences.getBool(_duaId.toString()) ?? false;
-    });
-  }
+  // checkPrefForFirstIndex(int _duaId) async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     favValue = sharedPreferences.getBool(_duaId.toString()) ?? false;
+  //   });
+  // }
 }

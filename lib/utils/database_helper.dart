@@ -4,8 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:masnoon_dua/data/dua_data.dart';
 
-
-class DatabaseHelper{
+class DatabaseHelper {
   static DatabaseHelper? _databaseHelper;
   static Database? _database;
 
@@ -34,7 +33,7 @@ class DatabaseHelper{
     Directory directory = await getApplicationDocumentsDirectory();
     String path = directory.path + 'masnoondua.db';
     var masnoonDuaDatabase =
-    await openDatabase(path, version: 1, onCreate: _createDb);
+        await openDatabase(path, version: 1, onCreate: _createDb);
     return masnoonDuaDatabase;
   }
 
@@ -44,7 +43,6 @@ class DatabaseHelper{
     }
     return _database!;
   }
-
 
   Future<int> insertDua(Dua dua) async {
     var db = await this.database;
@@ -71,11 +69,23 @@ class DatabaseHelper{
     return favList;
   }
 
-  Future<int> deleteFavDua(int id) async {
-    var db = await this.database;
-    int result =
-        await db.rawDelete('DELETE FROM $favTable WHERE $colId = $id');
-    return result;
+  Future<bool> isDuaFavorite(Dua dua) async {
+    // Query to check if the item exists in the favorites table
+    final db = await this.database;
+
+    final List<Map<String, dynamic>> result = await db.query(
+      favTable, // Table name
+      where: '$colId = ?', // Condition to match the itemId
+      whereArgs: [dua.dua_id], // Value to match
+    );
+
+    // If the result is not empty, the item is a favorite
+    return result.isNotEmpty;
   }
 
+  Future<int> deleteFavDua(int id) async {
+    var db = await this.database;
+    int result = await db.rawDelete('DELETE FROM $favTable WHERE $colId = $id');
+    return result;
+  }
 }
